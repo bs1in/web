@@ -5,7 +5,8 @@ security:
             memory:
                 users:
                     admin:
-                        password: admin
+                        # Password: admin
+                        password: $2y$13$Lip4NfQQNzL7SJQCPWNQbuoDsM6CBdAeVBKfQoFQklLAZaErvejRG
                         roles: 'ROLE_ADMIN'
                         
     encoders:
