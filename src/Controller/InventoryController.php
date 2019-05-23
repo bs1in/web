@@ -15,4 +15,17 @@ class InventoryController extends AbstractController
     {
         return $this->render('inventarisierung.html.twig');
     }
+    
+    /**
+     * @Route("/verwaltung", name="verwaltung")
+     */
+    public function getDevices()
+    {
+        
+        $devices = [
+            'name' => 'test'
+        ];
+        
+        return $this->render('verwaltung.html.twig', ['devices' => $devices]);
+    }
 }
