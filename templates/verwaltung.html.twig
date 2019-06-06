@@ -9,9 +9,6 @@
     </form>
 	         
             
-            {% for device in devices %}
-                
-                {%endfor %}
 	  <table class="table table-striped table-hover">
 		<thead>
 		  <tr href="google.de">
@@ -21,11 +18,15 @@
 		  </tr>
 		</thead>
 		<tbody>
-		  {% for item in entities %}
+                  {{dump(devices)}}
+		  {% for item in devices %}
                     <tr>
-                        {% for field in fields %}
+                        <td>{{item['name']}}</td>
+                        {#{% for field in fields %}
                             <td>{{ attribute(item, field) }}</td>
                         {% endfor %}
+                        {{item[id]}}#}
+                        
                     </tr>
                   {% endfor %}
 		</tbody>
