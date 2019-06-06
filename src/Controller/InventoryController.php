@@ -22,9 +22,22 @@ class InventoryController extends AbstractController
     public function getDevices()
     {
         
-        $devices = [
-            'name' => 'test'
-        ];
+        $json = '[{
+	"id": "2356354556",
+	"name": "Notenrechner Lehrer",
+	"description": "Zentraler Notenrechner im Lehrerzimmer",
+	"attributes": {
+		"Nur Lehrer": "Ja",
+		"Passwortgeschützt": "Ja",
+		"Betriebssystem": "Windows 2000"
+	},
+	"location": {
+		"name": "Lehrerzimmer",
+		"description": "Keine Schüler (offiziell) erlaubt!"
+	}
+}]';
+        
+        $devices = json_decode($json, true);
         
         return $this->render('verwaltung.html.twig', ['devices' => $devices]);
     }
