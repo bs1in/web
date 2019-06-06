@@ -5,6 +5,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Unirest\Request as UniRest;
 
 class InventoryController extends AbstractController
 {
@@ -22,10 +23,17 @@ class InventoryController extends AbstractController
     public function getDevices()
     {
         
-        $devices = [
+        $headers = array('Accept' => 'application/json');
+        $query = array('foo' => 'hello', 'bar' => 'world');
+
+        $response = UniRest::post('http://mockbin.com/request', $headers, $query);
+        
+        
+          $devices = [
             'name' => 'test'
         ];
         
         return $this->render('verwaltung.html.twig', ['devices' => $devices]);
+        //return $this->render('verwaltung.html.twig', ['devices' => $response]);
     }
 }
