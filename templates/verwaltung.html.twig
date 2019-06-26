@@ -22,11 +22,8 @@
 		  {% for item in devices %}
                     <tr>
                         <td>{{item['name']}}</td>
-                        {#{% for field in fields %}
-                            <td>{{ attribute(item, field) }}</td>
-                        {% endfor %}
-                        {{item[id]}}#}
-                        
+                        <td>{{item['location']['name']}}</td>
+                       
                     </tr>
                   {% endfor %}
 		</tbody>
