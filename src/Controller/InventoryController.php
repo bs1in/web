@@ -6,15 +6,44 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Unirest\Request as UniRest;
+use App\Entity\Device;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class InventoryController extends AbstractController
 {
     /**
      * @Route("/inventar", name="inventar")
      */
-    public function index()
+    public function createDevice(Request $request)
     {
-        return $this->render('inventarisierung.html.twig');
+        $device = new Device();
+        $form = $this->createFormBuilder($device)
+        ->add('id', TextType::class)
+        ->add('name', TextType::class)
+        ->add('description', TextType::class, ['label' => 'Beschreibung'])
+        ->add('location', TextType::class, ['label' => 'Ort'])
+        ->add('save', SubmitType::class, ['label' => 'Neues Gerät anlegen'])
+        ->getForm();
+        
+        $form->handleRequest($request);
+        $newDevice = false;
+        $data = '';
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $headers = array('Accept' => 'application/json');
+            
+            //api Aufruf
+            $newDevice = true;
+            
+        }
+        
+        return $this->render('inventarisierung.html.twig', [
+            'form' => $form->createView(),
+            'newDevice' => $newDevice,
+            'data' => $data
+        ]);
     }
     
     /**
