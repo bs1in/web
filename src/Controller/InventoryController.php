@@ -72,6 +72,19 @@ class InventoryController extends AbstractController
           "name": "Lehrerzimmer",
           "description": "Keine Schüler (offiziell) erlaubt!"
         }
+      },{
+        "id": "777777",
+        "name": "Test",
+        "description": "Monitor kaputt",
+        "attributes": {
+          "Nur Lehrer": "Ja",
+          "Passwortgeschützt": "Ja",
+          "Betriebssystem": "Windows 2000"
+        },
+        "location": {
+          "name": "Z217",
+          "description": "Keine Schüler (offiziell) erlaubt!"
+        }
       }]';
         
         $devices = json_decode($json, true);
