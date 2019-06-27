@@ -1,28 +1,25 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Inventar verwalten{% endblock %}
+{% block title %}Uebersicht{% endblock %}
 
 {% block body %}
-    <h1>Inventar verwalten</h1>
-    <form> 
-        <button type="button">Inventar verwalten</button>
-    </form>
-	         
+    <h1>Defekte Geräte</h1>    
             
 	  <table class="table table-striped table-hover">
 		<thead>
 		  <tr href="google.de">
 			<th>Gerät</th>
 			<th>Raum</th>
-			<th>Datum</th>
+			<th>Beschreibung</th>
 		  </tr>
 		</thead>
 		<tbody>
-                  {{dump(devices)}}
+                  
 		  {% for item in devices %}
                     <tr>
                         <td>{{item['name']}}</td>
                         <td>{{item['location']['name']}}</td>
+                        <td>{{item['description']}}</td>
                        
                     </tr>
                   {% endfor %}
