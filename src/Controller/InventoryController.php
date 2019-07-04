@@ -40,7 +40,6 @@ class InventoryController extends AbstractController
             $headers = array('Accept' => 'application/json');
             $response = UniRest::post('http://10.244.0.130:8080/api/devices', $headers, $query);
             $newDevice = true;
-            
         }
         
         return $this->render('inventarisierung.html.twig', [
