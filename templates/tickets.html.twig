@@ -3,27 +3,27 @@
 {% block title %}Uebersicht{% endblock %}
 
 {% block body %}
-    <h1>Übersicht Geräte</h1>    
-            
+    <h1>Defekte Geräte</h1>
+    
 	  <table class="table table-striped table-hover">
 		<thead>
 		  <tr href="google.de">
+                        <th>Id</th>
 			<th>Gerät</th>
-			<th>Raum</th>
 			<th>Beschreibung</th>
 		  </tr>
 		</thead>
 		<tbody>
-                  {% if devices is defined %}
-                    {% for item in devices %}
+                  {% if tickets is defined %}
+                    {% for item in tickets %}
                       <tr>
-                          {% if item['name'] is defined %}
-                            <td>{{item['name']}}</td>
+                          {% if item['id'] is defined %}
+                            <td>{{item['id']}}</td>
                           {% else %}
                               <td></td>
                           {% endif %}
-                          {% if item['location']['name'] is defined %}
-                            <td>{{item['location']['name']}}</td>
+                          {% if item['device'] is defined %}
+                            <td>{{item['device']}}</td>
                           {% else %}
                               <td></td>
                           {% endif %}
@@ -37,5 +37,4 @@
                   {% endif %}
 		</tbody>
 	  </table>
-
 {% endblock %}

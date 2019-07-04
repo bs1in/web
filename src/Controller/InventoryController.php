@@ -74,7 +74,7 @@ class InventoryController extends AbstractController
         }
       },{
         "id": "777777",
-        "name": "Test",
+        "name": "sdf",
         "description": "Monitor kaputt",
         "attributes": {
           "Nur Lehrer": "Ja",
@@ -92,5 +92,21 @@ class InventoryController extends AbstractController
         
         return $this->render('verwaltung.html.twig', ['devices' => $devices]);
         //return $this->render('verwaltung.html.twig', ['devices' => $response]);
+    }
+    
+    /**
+     * @Route("/tickets", name="tickets")
+     */
+    public function getTickets()  {
+        $json = '[{
+	"id": "790",
+	"device": "2356354556",
+	"description": "Es sind zu viele schlechte Noten gespeichert - Bitte Festplatte neu formatieren.",
+	"done": false
+        }]';
+        
+        $tickets = json_decode($json, true);
+        
+        return $this->render('tickets.html.twig', ['tickets' => $tickets]);
     }
 }
