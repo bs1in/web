@@ -29,12 +29,16 @@ class InventoryController extends AbstractController
         $form->handleRequest($request);
         $newDevice = false;
         $data = '';
+        $response = '';
         
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $headers = array('Accept' => 'application/json');
+            $query = array('name' => 'test', 'id' => 'test');
             
             //api Aufruf
+            $headers = array('Accept' => 'application/json');
+            $response = UniRest::post('http://10.244.0.130:8080/api/devices', $headers, $query);
             $newDevice = true;
             
         }
@@ -42,7 +46,8 @@ class InventoryController extends AbstractController
         return $this->render('inventarisierung.html.twig', [
             'form' => $form->createView(),
             'newDevice' => $newDevice,
-            'data' => $data
+            'data' => $data,
+            'response' => $response
         ]);
     }
     
@@ -51,62 +56,21 @@ class InventoryController extends AbstractController
      */
     public function getDevices()
     {
-        
-
         $headers = array('Accept' => 'application/json');
-        $query = array('foo' => 'hello', 'bar' => 'world');
-
-        $response = UniRest::post('http://mockbin.com/request', $headers, $query);
-        
+        $response = UniRest::get('http://10.244.0.130:8080/api/devices', $headers);
+        $devices = json_decode($response->raw_body, true);
        
-              $json = '[{
-        "id": "2356354556",
-        "name": "Notenrechner Lehrer",
-        "description": "Zentraler Notenrechner im Lehrerzimmer",
-        "attributes": {
-          "Nur Lehrer": "Ja",
-          "Passwortgeschützt": "Ja",
-          "Betriebssystem": "Windows 2000"
-        },
-        "location": {
-          "name": "Lehrerzimmer",
-          "description": "Keine Schüler (offiziell) erlaubt!"
-        }
-      },{
-        "id": "777777",
-        "name": "sdf",
-        "description": "Monitor kaputt",
-        "attributes": {
-          "Nur Lehrer": "Ja",
-          "Passwortgeschützt": "Ja",
-          "Betriebssystem": "Windows 2000"
-        },
-        "location": {
-          "name": "Z217",
-          "description": "Keine Schüler (offiziell) erlaubt!"
-        }
-      }]';
-        
-        $devices = json_decode($json, true);
-
-        
         return $this->render('verwaltung.html.twig', ['devices' => $devices]);
-        //return $this->render('verwaltung.html.twig', ['devices' => $response]);
     }
     
     /**
      * @Route("/tickets", name="tickets")
      */
     public function getTickets()  {
-        $json = '[{
-	"id": "790",
-	"device": "2356354556",
-	"description": "Es sind zu viele schlechte Noten gespeichert - Bitte Festplatte neu formatieren.",
-	"done": false
-        }]';
-        
-        $tickets = json_decode($json, true);
-        
+        $headers = array('Accept' => 'application/json');
+        $response = UniRest::get('http://10.244.0.130:8080/api/tickets', $headers);
+        $tickets = json_decode($response->raw_body, true);
+
         return $this->render('tickets.html.twig', ['tickets' => $tickets]);
     }
 }
