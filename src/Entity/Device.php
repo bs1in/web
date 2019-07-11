@@ -9,6 +9,7 @@ class Device
     protected $attributes;
     protected $location;
     
+    
     function getId() {
         return $this->id;
     }
@@ -47,7 +48,5 @@ class Device
 
     function setLocation($location) {
         $this->location = $location;
-    }
-
-
+}
 }

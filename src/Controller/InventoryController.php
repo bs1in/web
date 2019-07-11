@@ -19,7 +19,7 @@ class InventoryController extends AbstractController
     {
         $device = new Device();
         $form = $this->createFormBuilder($device)
-        ->add('id', TextType::class)
+      
         ->add('name', TextType::class)
         ->add('description', TextType::class, ['label' => 'Beschreibung'])
         ->add('location', TextType::class, ['label' => 'Ort'])
@@ -29,23 +29,32 @@ class InventoryController extends AbstractController
         $form->handleRequest($request);
         $newDevice = false;
         $data = '';
+        $data2 = '';
         $response = '';
+        
         
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $headers = array('Accept' => 'application/json');
-            $query = array('name' => 'test', 'id' => 'test');
-            
+            $data2 = [
+                'name' => $data->getName(),
+                'description' => $data->getDescription(),
+                'location' => [
+                    'name' => $data->getLocation(),
+                    'description' => ''
+                    ]
+            ];
+          
+            $headers = array('content-type' => 'application/json');
+
             //api Aufruf
-            $headers = array('Accept' => 'application/json');
-            $response = UniRest::post('http://10.244.0.130:8080/api/devices', $headers, $query);
+            $response = UniRest::post('http://10.244.0.130:8080/api/devices', $headers, json_encode($data2));
             $newDevice = true;
         }
         
         return $this->render('inventarisierung.html.twig', [
             'form' => $form->createView(),
             'newDevice' => $newDevice,
-            'data' => $data,
+            'data' => $data2,
             'response' => $response
         ]);
     }
